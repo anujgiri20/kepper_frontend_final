@@ -1,0 +1,20 @@
+.link{
+    color:white;
+    text-decoration: none;
+  }
+
+  @media only screen and (max-width: 769px)
+  {
+  .link{
+    display: none;
+  }
+  
+  
+    
+  }
+  
+  /* 769px */
+  .link_toggel{
+    text-decoration: none;
+    color:white;
+  }

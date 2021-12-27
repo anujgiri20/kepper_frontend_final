@@ -1,17 +1,3 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
 
 .App-header {
   background-color: #282c34;
@@ -35,4 +21,29 @@
   to {
     transform: rotate(360deg);
   }
+}
+.link{
+  color:white;
+  text-decoration: none;
+}
+.mainpage{
+  /* background-image: url("https://images.pexels.com/photos/1779487/pexels-photo-1779487.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"); */
+
+
+
+}
+@media only screen and (max-width: 769px)
+{
+.link{
+  display: none;
+}
+
+
+  
+}
+
+/* 769px */
+.link_toggel{
+  text-decoration: none;
+  color:white;
 }
