@@ -21,6 +21,7 @@ function Profile(props) {
     
 
     const getdata = () => {
+        try{
         Axios.get("https://googlekepper.herokuapp.com/getdata", {
             headers:{
                 "access-token": localStorage.getItem("access-token")
@@ -28,8 +29,9 @@ function Profile(props) {
         }).then((response) => {
             if(response.status == 200)
             {
-               localStorage.setItem("login-status" , true)
-              history.push("/Kepper")
+               console.log("true")
+                localStorage.setItem("login-status" , true)
+               history.push("/Kepper")
             }
             else
             {
@@ -39,31 +41,23 @@ function Profile(props) {
 
             }
         })
+    }catch(err){
+         console.log(err)
+    }
 
     }
 
 
 
-// useEffect(() => {
 
-//     getdata();
-// }, []);
 
 return (
     <>
 
-{/* <div className="nav1">
-            
-            <h1>anuj</h1>
-            </div> */}
 
-
-        {/* <button className="button_verify"  onClick={getdata}>verify user</button>
-         */}
-
-<div className="box-2" onClick={getdata}>
+<div className="box-2" >
   <div className="btn btn-two">
-    <span className="span">Verify User</span>
+    <span onClick={getdata} className="span">Verify User</span>
   </div>
 </div>
 

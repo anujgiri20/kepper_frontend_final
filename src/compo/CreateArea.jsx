@@ -2,32 +2,64 @@ import React from "react";
 import AddIcon from "@material-ui/icons/Add";
 import Fab from "@material-ui/core/Fab";
 import Zoom from "@material-ui/core/Zoom";
-
+import Axios from "axios";
 
 import { useEffect} from "react"
 import DeleteIcon from "@material-ui/icons/Delete";
 import {useState} from "react"
+import { useHistory } from "react-router-dom";
 
 
 
 
 
 function Note() {
+  const history = useHistory()
   const [api_data, setdata] = useState([]);
   const getdata = () => {
-    fetch("https://googlekepper.herokuapp.com/getFromKepper", { method: "GET" })
-      .then((data) => data.json())
-      .then((newdata) => setdata(newdata));
-  };
+    try {
+      Axios.get("https://googlekepper.herokuapp.com/getFromKepper", {
+        headers: {
+          "access-token": localStorage.getItem("access-token")
+        }
+      }).then((response) => {
+        if (response.status == 200) {
+          console.log(response)
+          setdata(response.data)
+        }
+        else {
+          history.push("/")
+          alert("user is not authenticated")
+
+
+        }
+      }).catch((err) => history.push("/"))
+    } catch (err) {
+      console.log(err)
+    }
+
+  }
+
   useEffect(() => {
-    
-    getdata();
-  }, []);
+    getdata()
+  }, [])
 
   const deletdata = (id) => {
     fetch(`https://googlekepper.herokuapp.com/deleteFromKepper/`+id,
-      { method: "DELETE" }).then(() => getdata())
-    console.log(id)
+      { method: "DELETE" ,
+      headers: { "access-token": localStorage.getItem("access-token") }
+    }).then((response) => {
+      if (response.status !== 400) {
+        getdata()
+        alert("data delete succesfull")
+      }
+      else {
+        alert("you are not authorize user")
+        history.push("/")
+      }
+
+    }).catch((err) => history.push("/"))
+
   }
 
   return (
@@ -55,7 +87,7 @@ function Note() {
 function CreateArea({getdata}) {
   const [isExpanded, setExpanded] = React.useState(false);
  
-
+const history = useHistory()
   const [name, setName] = useState("");
 
   const [data, setdata] = useState("");
@@ -70,7 +102,8 @@ function CreateArea({getdata}) {
     fetch(`https://googlekepper.herokuapp.com/insertToKepper`, {
       method: "POST",
      
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "application/json",
+      "access-token": localStorage.getItem("access-token") },
       body: JSON.stringify([{
     
             title: name,
@@ -80,11 +113,25 @@ function CreateArea({getdata}) {
         
       }])
   
-    }).then(()=>getdata())
-    setdata("")
+    }).then((response) => {
+      if (response.status !== 400) {
+        getdata()
+        alert("Add data processing")
+      }
+      else {
+
+        history.push("/")
+        alert("you are not authorize user")
+      }
+
+    }).catch((err) => history.push("/"))
+
+
     setName("")
+    setdata("")
+
   }
-  
+
 
 
 

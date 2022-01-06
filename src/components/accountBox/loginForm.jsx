@@ -26,23 +26,8 @@ export function LoginForm(props) {
 const [loginstatus , setloginstatus] = useState(false)
 const history = useHistory();
 
-   
-
-// function onload(){
-//     alert(getCookie("access-token"));
-//  }
-//  function getCookie(cname) {
-//     var allcookies = document.cookie;
-//     var arrayb = allcookies.split(";");
-//     for (item in arrayb) {
-//         if (item.startsWith("Token=")){
-//             var c=item.substr(5);
-//             return c;
-//         }
-//     }
-// }
-
     const login = () => {
+        try{
         Axios.post("https://googlekepper.herokuapp.com/login", {
         
           username: usernameReg,
@@ -51,14 +36,14 @@ const history = useHistory();
          
           if((response.data.messege) == 'valid logged in')
           {
-           
+         
             localStorage.setItem("access-token", response.data.token)
              
             
             alert("login Succesfull")
             
              
-            history.push("./Kepper")
+            history.push("./verification")
             // console.log(response)
                
             
@@ -68,27 +53,12 @@ const history = useHistory();
               alert(msg_login)
           }
         })
-    
+        }catch(err)
+        {
+            console.log(err)
+        }
       }
     
-
-
-    //   if((response.data).length == 9)
-    //   {
-    //       setloginstatus(true)
-    //   }
-    //   else{
-    //       setloginstatus(false)
-    //   }
-
-    //   useEffect(()=>{
-    // Axios.get("http://localhost:1234/getdata").then((response)=>{
-    //     console.log(response)
-    // })
-    //   },[])
-
-
-
     return (
         <BoxContainer>
             <FormContainer>
@@ -123,13 +93,7 @@ const history = useHistory();
                 </BoldLink>
             </MutedLink>
             <h1>{msg}</h1>
-            {/* <Link to="/"></Link>
-            {loginstatus ?  
-            (
-                <Router>
-           <Redirect to="https://www.w3schools.com" />
-           </Router>
-            ): ""} */}
+
         </BoxContainer>
     );
 }

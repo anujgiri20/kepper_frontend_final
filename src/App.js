@@ -76,7 +76,7 @@ const Line = styled.span`
 
 const Overlay = styled.div`
   position: absolute;
-  height: ${props => (props.open ? "20vh" : 0)};
+  height: ${props => (props.open ? "25vh" : 0)};
   width: 100vw;
   background: rgb(241,196,15,0.6);
   transition: height 0.4s ease-in-out;

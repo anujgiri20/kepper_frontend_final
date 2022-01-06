@@ -6,7 +6,7 @@ import "./index_.css"
 import { useHistory } from "react-router-dom";
 function Kepper({logout_}) {
 const history = useHistory()
-if(localStorage.getItem("login-status"))
+if(logout_)
 {
 logout_(true)
 }
