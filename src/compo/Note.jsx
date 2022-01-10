@@ -28,7 +28,7 @@ function Note() {
     </div>
     {api_data.map((data)=>(
     <div key={data._id} className="note">
-      <h1 >{data.title}</h1>
+      
       <p>{data.data}</p>
       <button onClick={()=>deletdata(data._id)}>
         <DeleteIcon />
